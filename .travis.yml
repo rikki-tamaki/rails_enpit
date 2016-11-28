@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+- 2.2.5
+- 1.9.3
+- jruby-19mode
+- rbx-2
+deploy:
+  provider: heroku
+  api_key:
+    secure: vxsxHpk+sUH5WZmcpe5Tl8burNw2Blz6MQRDmANwBUQTuPowc2aHzsL6fGPIzHrKFmDCkJjO5EpFzErbWUcGx1zqni6+02Q7EhiNZMWfgbX0HtIIZcZ5awr83hbvOaOJYI8SV0l/gK/sfR7Kox2FgdmEjbVilX9MHoJK8HuA967hhrcwlZh5CG4D4onUbPu3eHVUcSaJXL8nhjx/peoPTxBLP+RRGz/UdUxXRrxbyukqsvw7Xr/Vuj9koIC0PQ0cnaiyP5OryIXu5uIeucEZOHj2AFcb0UeIMkHDxGT8EHfHYEgvqBLK7WvwC4XRzuvz9/vfoGXBfcsJc00mE6KMdwLk4Y/rTpnQSL/OQILGXRwpI835rM0UNAqyufAmIH+trz9JwCl+0VBmv6GQ54MupRjMRELbNom6x21CsB8mzMK+TCAurGMSNQdkF/JshehjxJG13O8CSET2f2Jijsj0M0ppvCaIx1JRLXwzZdkOGHyRxFvDdE4Hn1OB4XPkhI5n8D60BTyESn4aYanCERW2D7ZmENTz+kazyJsxoBkkKsOQblr44tWfiv/uHy8o9NWJvc8a1SN1N+Ei7lhx5DoUDSlVUFdD+0bvaw5R8WAcLJHF5ePJjpFqe8wRb7Vm1ryu96zW6TzAKHaT6tJDxQkqJHPHBJOx7bnIgt747a8uKZc=
+  app: serene-retreat-10356
+  on:
+    repo: rikki-tamaki/rails_enpit
+addons:
+postgresql: "9.4.8"
+before_script:
+- psql -c 'create database travis_ci_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+- rake db:migrate RAILS_ENV=test # いらない？
